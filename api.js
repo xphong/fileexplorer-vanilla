@@ -44,3 +44,7 @@ const folderDirectory = {
     }
   ]
 };
+
+export default {
+  getFolderDirectory: async () => folderDirectory,
+};
