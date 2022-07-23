@@ -1,5 +1,5 @@
 import { getFolderDirectory } from './api.js';
-import { getChildrenByName, getDateFormat } from './utils.js';
+import { getChildrenByName, getDateFormat, getFileSizeInKB } from './utils.js';
 
 const iconMap = {
   file: 'fa-file',
@@ -58,7 +58,7 @@ function renderTreeListItem({ name, type, modified, size }) {
       ${getDateFormat(modified)}
     </td>
     <td>
-      ${size}
+      ${getFileSizeInKB(size)}
     </td>
   </tr>
   `

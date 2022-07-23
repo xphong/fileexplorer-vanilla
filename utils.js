@@ -13,3 +13,7 @@ export function getChildrenByName(name, folderDirectory) {
 export function getDateFormat(date) {
   return new Date(date).toLocaleDateString();
 }
+
+export function getFileSizeInKB(bytes) {
+  return `${bytes / 1000} KB`
+}
