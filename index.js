@@ -1,5 +1,10 @@
 import api from './api.js';
 
+const iconMap = {
+  file: 'fa-file',
+  folder: 'fa-folder-open'
+}
+
 function renderSidebarItem({ name, type, children }, isHidden) {
   const hasChildren = !!children?.length && !!children.filter((child) => child.type === 'folder').length;
   const childrenNodes = hasChildren ? children.map((child) => renderSidebarItem(child, true)).join('') : '';
@@ -41,6 +46,27 @@ function handleSidebarExpandToggle(element) {
   });
 }
 
+function renderTreeListItem({ name, type, modified, size, children }) {
+  return `
+  <tr>
+    <td>
+      <i class="fa-solid ${iconMap[type]}"></i>
+      ${name}
+    </td>
+    <td>
+      ${modified}
+    </td>
+    <td>
+      ${size}
+    </td>
+  </tr>
+  `
+}
+
+function renderTreeList(children) {
+  return !!children?.length ? children.map((child) => renderTreeListItem(child)).join('') : '';
+}
+
 function getChildrenByName(name, folderDirectory) {
   if (name === folderDirectory.name) {
     return folderDirectory.children;
@@ -66,8 +92,9 @@ function renderSidebar(folderDirectory) {
 
       const children = getChildrenByName(name, folderDirectory);
 
-      console.log('children', children)
+      console.log('children', children);
 
+      document.querySelector('.directoryTreeList').innerHTML = renderTreeList(children);
     });
   });
 }
