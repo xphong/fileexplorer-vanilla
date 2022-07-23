@@ -25,26 +25,23 @@ function renderSidebarItem({ name, type, children }, isHidden) {
 }
 
 function handleSidebarExpandToggle(element) {
-  element.addEventListener('click', (event) => {
-    const containerElement = event.target.parentElement.parentElement;
-    const currentElement = event.currentTarget;
+  const containerElement = element.parentElement.parentElement;
 
-    if (currentElement.classList.contains('fa-caret-right')) {
-      containerElement.querySelectorAll(':scope > .directorySidebarItemContainer').forEach((element) => {
-        element.classList.remove('hidden');
-      })
+  if (element.classList.contains('fa-caret-right')) {
+    containerElement.querySelectorAll(':scope > .directorySidebarItemContainer').forEach((element) => {
+      element.classList.remove('hidden');
+    })
 
-      currentElement.classList.remove('fa-caret-right');
-      currentElement.classList.add('fa-caret-down');
-    } else {
-      containerElement.querySelectorAll(':scope > .directorySidebarItemContainer').forEach((element) => {
-        element.classList.add('hidden');
-      })
+    element.classList.remove('fa-caret-right');
+    element.classList.add('fa-caret-down');
+  } else {
+    containerElement.querySelectorAll(':scope > .directorySidebarItemContainer').forEach((element) => {
+      element.classList.add('hidden');
+    })
 
-      currentElement.classList.remove('fa-caret-down');
-      currentElement.classList.add('fa-caret-right');
-    }
-  });
+    element.classList.remove('fa-caret-down');
+    element.classList.add('fa-caret-right');
+  }
 }
 
 function renderTreeListItem({ name, type, modified, size }) {
@@ -69,34 +66,44 @@ function renderTreeList(children) {
 }
 
 function handleSelectableItemClick(element, folderDirectory) {
-  element.addEventListener('click', (event) => {
-    const currentElement = event.currentTarget;
-    const name = currentElement.dataset.name;
+  const name = element.dataset.name;
 
-    document.querySelectorAll('.selected').forEach((element) => element.classList.remove('selected'));
-    currentElement.classList.add('selected');
+  document.querySelectorAll('.selected').forEach((element) => element.classList.remove('selected'));
+  element.classList.add('selected');
 
-    // Name only exists for folders
-    if (!name) {
-      return;
-    }
+  // Name only exists for folders
+  if (!name) {
+    return;
+  }
 
-    const children = getChildrenByName(name, folderDirectory);
+  const children = getChildrenByName(name, folderDirectory);
 
-    document.querySelector('.directoryTreeList').innerHTML = renderTreeList(children);
-    document.querySelectorAll('.directoryTreeListItem').forEach((element) => handleSelectableItemClick(element, folderDirectory));
-  });
+  document.querySelector('.directoryTreeList').innerHTML = renderTreeList(children);
 }
 
 function renderInitialSidebar(folderDirectory) {
   document.querySelector('.directorySideBar').innerHTML = renderSidebarItem(folderDirectory);
-  document.querySelectorAll('.directorySidebarExpandToggle').forEach(handleSidebarExpandToggle);
-  document.querySelectorAll('.directorySidebarItemSelectable').forEach((element) => handleSelectableItemClick(element, folderDirectory));
+  document.querySelector('.directorySideBar').addEventListener('click', (event) => {
+    const targetElement = event.target;
+    if (targetElement.className.includes('directorySidebarExpandToggle')) {
+      handleSidebarExpandToggle(targetElement);
+    }
+
+    if (targetElement.className.includes('directorySidebarItemSelectable')) {
+      handleSelectableItemClick(targetElement, folderDirectory);
+    }
+  });
 }
 
 function renderInitialTreeList(folderDirectory) {
   document.querySelector('.directoryTreeList').innerHTML = renderTreeList(folderDirectory.children);
-  document.querySelectorAll('.directoryTreeListItem').forEach((element) => handleSelectableItemClick(element, folderDirectory));
+  document.querySelector('.directoryTreeList').addEventListener('click', (event) => {
+    const directoryTreeListElement = event.target.closest('tr');
+
+    if (directoryTreeListElement.className.includes('directoryTreeListItem')) {
+      handleSelectableItemClick(directoryTreeListElement, folderDirectory);
+    }
+  });
 }
 
 async function run() {
