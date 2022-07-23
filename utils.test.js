@@ -1,4 +1,4 @@
-import { getChildrenByName } from './utils.js';
+import { getChildrenByName, getDateFormat, getFileSizeInKB } from './utils.js';
 
 describe('getChildrenByName', () => {
   test('should return children by folder name', () => {
@@ -62,5 +62,28 @@ describe('getChildrenByName', () => {
     ]
 
     expect(getChildrenByName('Documents 3', folderDirectory)).toEqual(expectedChildren);
+  })
+})
+
+describe('getFileSizeInKB', () => {
+  test.each([
+    {
+      bytes: 1000,
+      expected: '1 KB',
+    },
+    {
+      bytes: 5000,
+      expected: '5 KB',
+    },
+    {
+      bytes: 100000,
+      expected: '100 KB',
+    },
+  ])('should convert $bytes byte size', ({ bytes, expected }) => {
+    expect(getFileSizeInKB(bytes)).toEqual(expected);
+  })
+
+  test('should return undefined if invalid byte size', () => {
+    expect(getFileSizeInKB('asdasdsa')).toEqual(undefined);
   })
 })
