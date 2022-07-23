@@ -90,6 +90,9 @@ function renderInitialSidebar(folderDirectory) {
       const currentElement = event.currentTarget;
       const name = currentElement.dataset.name;
 
+      document.querySelectorAll('.directorySidebarItemSelectable').forEach((element) => element.classList.remove('selected'));
+      currentElement.classList.add('selected');
+
       const children = getChildrenByName(name, folderDirectory);
 
       console.log('children', children);

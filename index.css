@@ -21,14 +21,19 @@
 .directorySidebarItem {
   display: flex;
   align-items: center;
-  padding: 10px;
   width: 100%;
   cursor: pointer;
 }
 
 .directorySidebarItemSelectable {
+  padding: 10px;
   margin-left: 10px;
 }
+
+.directorySidebarItemSelectable.selected {
+  background: #ccc;
+}
+
 
 .directoryTreeContainer {
   width: 100%;
