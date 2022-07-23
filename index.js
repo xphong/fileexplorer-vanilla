@@ -1,14 +1,14 @@
 import api from './api.js';
 
 function renderSidebarItem({ name, type, children }, isHidden) {
-  const hasChildren = !!children?.length;
+  const hasChildren = !!children?.length && !!children.filter((child) => child.type === 'folder').length;
   const childrenNodes = hasChildren ? children.map((child) => renderSidebarItem(child, true)).join('') : '';
 
   return type === 'folder' ? `
   <div class="directorySidebarItemContainer ${isHidden ? 'hidden' : ''}">
     <div class="directorySidebarItem">
-      ${hasChildren ? '<i class="fa-solid fa-caret-right directoryExpandToggle"></i>' : ''}
-      <div class="directorySidebarItemSelectable">
+      ${hasChildren ? '<i class="fa-solid fa-caret-right directorySidebarExpandToggle"></i>' : ''}
+      <div class="directorySidebarItemSelectable" data-name="${name}">
         <i class="fa-solid fa-folder-open"></i>
         ${name}
       </div>
@@ -38,14 +38,38 @@ function handleSidebarExpandToggle(element) {
       currentElement.classList.remove('fa-caret-down');
       currentElement.classList.add('fa-caret-right');
     }
-  })
+  });
+}
+
+function getChildrenByName(name, folderDirectory) {
+  if (name === folderDirectory.name) {
+    return folderDirectory.children;
+  }
+
+  if (!!folderDirectory.children?.length) {
+    return folderDirectory.children.map((child) => getChildrenByName(name, child)).filter((child) => !!child?.length)[0];
+  }
+
+  return [];
 }
 
 function renderSidebar(folderDirectory) {
   const sidebar = renderSidebarItem(folderDirectory);
 
   document.querySelector('.directorySideBar').innerHTML = sidebar;
-  document.querySelectorAll('.directoryExpandToggle').forEach(handleSidebarExpandToggle);
+  document.querySelectorAll('.directorySidebarExpandToggle').forEach(handleSidebarExpandToggle);
+
+  document.querySelectorAll('.directorySidebarItemSelectable').forEach((element) => {
+    element.addEventListener('click', (event) => {
+      const currentElement = event.currentTarget;
+      const name = currentElement.dataset.name;
+
+      const children = getChildrenByName(name, folderDirectory);
+
+      console.log('children', children)
+
+    });
+  });
 }
 
 async function run() {
