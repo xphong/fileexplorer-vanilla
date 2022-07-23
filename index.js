@@ -1,20 +1,9 @@
-import api from './api.js';
+import { getFolderDirectory } from './api.js';
+import { getChildrenByName } from './utils.js';
 
 const iconMap = {
   file: 'fa-file',
   folder: 'fa-folder-open'
-}
-
-function getChildrenByName(name, folderDirectory) {
-  if (name === folderDirectory.name) {
-    return folderDirectory.children;
-  }
-
-  if (!!folderDirectory.children?.length) {
-    return folderDirectory.children.map((child) => getChildrenByName(name, child)).filter((child) => !!child?.length)[0];
-  }
-
-  return [];
 }
 
 function renderSidebarItem({ name, type, children }, isHidden) {
@@ -112,7 +101,7 @@ function renderInitialTreeList(folderDirectory) {
 
 async function run() {
   try {
-    const folderDirectory = await api.getFolderDirectory();
+    const folderDirectory = await getFolderDirectory();
 
     if (!folderDirectory) {
       return;
