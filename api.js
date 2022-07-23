@@ -7,19 +7,19 @@ const folderDirectory = {
     {
       type: 'folder',
       name: 'Documents',
-      modified: '2022-07-22T20:59:00.000Z',
+      modified: '2022-07-21T20:59:00.000Z',
       size: 2000,
       children: [
         {
           type: 'folder',
           name: 'More Documents',
-          modified: '2022-07-22T20:59:00.000Z',
+          modified: '2022-07-15T20:59:00.000Z',
           size: 2000,
           children: [
             {
               type: 'file',
               name: 'More Important Stuff.txt',
-              modified: '2022-07-22T20:59:00.000Z',
+              modified: '2022-07-17T20:59:00.000Z',
               size: 7000,
             },
             {
@@ -33,7 +33,7 @@ const folderDirectory = {
         {
           type: 'file',
           name: 'Important Stuff.txt',
-          modified: '2022-07-22T20:59:00.000Z',
+          modified: '2022-07-13T20:59:00.000Z',
           size: 5000,
         }
       ]
@@ -41,7 +41,7 @@ const folderDirectory = {
     {
       type: 'folder',
       name: 'Images',
-      modified: '2022-07-22T20:59:00.000Z',
+      modified: '2022-07-17T20:59:00.000Z',
       size: 2000,
     },
     {

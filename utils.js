@@ -9,3 +9,7 @@ export function getChildrenByName(name, folderDirectory) {
 
   return [];
 }
+
+export function getDateFormat(date) {
+  return new Date(date).toLocaleDateString();
+}
