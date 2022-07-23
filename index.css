@@ -5,27 +5,40 @@
 }
 
 .directorySideBar {
-  display: flex;
   padding: 10px;
   border-right: 1px solid #ccc;
-  width: 30%;
+}
+
+.directoryTreeContainer {
+  width: 100%;
 }
 
 .directoryTree {
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.directoryTree td {
+  padding: 10px;
+}
+
+.directoryTree td>i {
+  margin-right: 10px;
+}
+
+.directoryTree td:first-child {
   width: 70%;
 }
 
-.directoryTreeHeader {
-  display: flex;
-  color: #646464;
-  gap: 30px;
-  padding: 10px;
-  border-bottom: 2px solid #ccc;
+.directoryTreeList td:first-child {
+  padding-left: 60px;
 }
 
-.directoryTreeFirstColumn {
-  flex: 1;
+.directoryTreeHeader td:first-child {
   padding-left: 100px;
+}
+
+.directoryTreeHeader {
+  color: #646464;
+  border-bottom: 2px solid #ccc;
 }

@@ -10,27 +10,37 @@
 
 <body>
   <div id="directory" class="directoryContainer">
-    <div id="directorySideBar" class="directorySideBar">
+    <div class="directorySideBar">
       LEFT SIDEBAR LEFT SIDEBAR LEFT SIDEBAR LEFT SIDEBARLEFT SIDEBARLEFT SIDEBAR
     </div>
-    <div id="directoryTree" class="directoryTree">
-      <div class="directoryTreeHeader">
-        <span class="directoryTreeFirstColumn">
-          Name
-        </span>
-        <span>
-          Date Modified
-        </span>
-        <span>
-          File Size
-        </span>
-      </div>
+    <div class="directoryTreeContainer">
+      <table class="directoryTree">
+        <thead class="directoryTreeHeader">
+          <tr>
+            <td>
+              Name
+            </td>
+            <td>
+              Date Modified
+            </td>
+            <td>
+              File Size
+            </td>
+          </tr>
+        </thead>
 
-      <div class="directoryTreeList">
-        <div>
-          Documents
-        </div>
-      </div>
+        <tbody class="directoryTreeList">
+          <tr>
+            <td>
+              <i class="fa-solid fa-folder-open"></i>
+              Documents
+            </td>
+            <td>
+              7/6/2020
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
   <script src="https://kit.fontawesome.com/d93456bf73.js" crossorigin="anonymous"></script>
