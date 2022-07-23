@@ -27,7 +27,8 @@
 
 .directorySidebarItemSelectable {
   padding: 10px;
-  margin-left: 10px;
+  margin: 0 10px;
+  width: 100%;
 }
 
 .directoryTreeContainer {
