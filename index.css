@@ -1,6 +1,7 @@
 .directoryContainer {
   display: flex;
   border: 1px solid #ccc;
+  min-height: 500px;
 }
 
 .directorySideBar {
