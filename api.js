@@ -11,6 +11,12 @@ const folderDirectory = {
       size: 2000,
       children: [
         {
+          type: 'folder',
+          name: 'More Documents',
+          modified: '2022-07-22T20:59:00.000Z',
+          size: 2000,
+        },
+        {
           type: 'file',
           name: 'Important Stuff.txt',
           modified: '2022-07-22T20:59:00.000Z',

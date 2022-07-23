@@ -22,7 +22,10 @@
   align-items: center;
   padding: 10px;
   width: 100%;
-  gap: 5px;
+}
+
+.directorySidebarItemSelectable {
+  margin-left: 10px;
 }
 
 .directoryTreeContainer {
@@ -57,4 +60,13 @@
 .directoryTreeHeader {
   color: #646464;
   border-bottom: 2px solid #ccc;
+}
+
+.fa-caret-right,
+.fa-caret-down {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }
