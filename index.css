@@ -1,12 +1,28 @@
 .directoryContainer {
   display: flex;
   border: 1px solid #ccc;
-  min-height: 500px;
 }
 
 .directorySideBar {
+  display: flex;
+  flex-direction: column;
   padding: 10px;
   border-right: 1px solid #ccc;
+  width: 30%;
+}
+
+.directorySidebarItemContainer {
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+}
+
+.directorySidebarItem {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+  gap: 5px;
 }
 
 .directoryTreeContainer {
