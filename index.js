@@ -46,9 +46,9 @@ function handleSidebarExpandToggle(element) {
   });
 }
 
-function renderTreeListItem({ name, type, modified, size, children }) {
+function renderTreeListItem({ name, type, modified, size }) {
   return `
-  <tr>
+  <tr class="directoryTreeListItem" ${type === 'folder' ? `data-name="${name}"` : ''}>
     <td>
       <i class="fa-solid ${iconMap[type]}"></i>
       ${name}
@@ -79,31 +79,37 @@ function getChildrenByName(name, folderDirectory) {
   return [];
 }
 
+function handleSelectableItemClick(element, folderDirectory) {
+  element.addEventListener('click', (event) => {
+    const currentElement = event.currentTarget;
+    const name = currentElement.dataset.name;
+
+    document.querySelectorAll('.selected').forEach((element) => element.classList.remove('selected'));
+    currentElement.classList.add('selected');
+
+    if (!name) {
+      return;
+    }
+
+    const children = getChildrenByName(name, folderDirectory);
+    console.log('currentElement', currentElement)
+
+    document.querySelector('.directoryTreeList').innerHTML = renderTreeList(children);
+    document.querySelectorAll('.directoryTreeListItem').forEach((element) => handleSelectableItemClick(element, folderDirectory));
+  });
+}
+
 function renderInitialSidebar(folderDirectory) {
   const sidebar = renderSidebarItem(folderDirectory);
 
   document.querySelector('.directorySideBar').innerHTML = sidebar;
   document.querySelectorAll('.directorySidebarExpandToggle').forEach(handleSidebarExpandToggle);
-
-  document.querySelectorAll('.directorySidebarItemSelectable').forEach((element) => {
-    element.addEventListener('click', (event) => {
-      const currentElement = event.currentTarget;
-      const name = currentElement.dataset.name;
-
-      document.querySelectorAll('.directorySidebarItemSelectable').forEach((element) => element.classList.remove('selected'));
-      currentElement.classList.add('selected');
-
-      const children = getChildrenByName(name, folderDirectory);
-
-      console.log('children', children);
-
-      document.querySelector('.directoryTreeList').innerHTML = renderTreeList(children);
-    });
-  });
+  document.querySelectorAll('.directorySidebarItemSelectable').forEach((element) => handleSelectableItemClick(element, folderDirectory));
 }
 
 function renderInitialTreeList(folderDirectory) {
   document.querySelector('.directoryTreeList').innerHTML = renderTreeList(folderDirectory.children);
+  document.querySelectorAll('.directoryTreeListItem').forEach((element) => handleSelectableItemClick(element, folderDirectory));
 }
 
 async function run() {

@@ -30,11 +30,6 @@
   margin-left: 10px;
 }
 
-.directorySidebarItemSelectable.selected {
-  background: #ccc;
-}
-
-
 .directoryTreeContainer {
   width: 100%;
 }
@@ -76,4 +71,12 @@
 
 .hidden {
   display: none;
+}
+
+.directoryTreeListItem {
+  cursor: pointer;
+}
+
+.selected {
+  background: #ccc;
 }
