@@ -79,7 +79,7 @@ function getChildrenByName(name, folderDirectory) {
   return [];
 }
 
-function renderSidebar(folderDirectory) {
+function renderInitialSidebar(folderDirectory) {
   const sidebar = renderSidebarItem(folderDirectory);
 
   document.querySelector('.directorySideBar').innerHTML = sidebar;
@@ -99,16 +99,25 @@ function renderSidebar(folderDirectory) {
   });
 }
 
+function renderInitialTreeList(folderDirectory) {
+  document.querySelector('.directoryTreeList').innerHTML = renderTreeList(folderDirectory.children);
+}
+
 async function run() {
-  const folderDirectory = await api.getFolderDirectory();
+  try {
+    const folderDirectory = await api.getFolderDirectory();
 
-  console.log('folderDirectory', folderDirectory);
+    console.log('folderDirectory', folderDirectory);
 
-  if (!folderDirectory) {
-    return;
+    if (!folderDirectory) {
+      return;
+    }
+
+    renderInitialSidebar(folderDirectory);
+    renderInitialTreeList(folderDirectory);
+  } catch (error) {
+    console.warn('Error', error);
   }
-
-  renderSidebar(folderDirectory);
 }
 
 run();
